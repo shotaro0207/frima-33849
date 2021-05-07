@@ -79,11 +79,46 @@ RSpec.describe User, type: :model do
         another_user.valid?
         expect(another_user.errors.full_messages).to include("Email has already been taken")
       end
+      it '＠がない場合登録できない' do
+        @user.email = 'tech123gmail.com'
+        @user.valid?
+      end
       it 'passwordが5文字以下では登録できない' do
         @user.password = 'lmn12'
         @user.password_confirmation = 'lmn12'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+      end
+      it 'passwordが半角英語のみは登録できない' do
+        @user.password = 'lmnlmn'
+        @user.password_confirmation = 'lmnlmn'
+        @user.valid?
+      end
+      it 'passwordが数字のみは登録できない' do
+        @user.password = '123456'
+        @user.password_confirmation = '123456'
+        @user.valid?
+      end
+      it 'passwordが全角英数混合は登録できない' do
+        @user.password = 'ｌｍｎ１２３'
+        @user.password_confirmation = 'ｌｍｎ１２３'
+        @user.valid?
+      end
+      it '姓は全角以外は登録できない' do
+        @user.last_name = 'yamada'
+        @user.valid?
+      end
+      it '名は全角以外は登録できない' do
+        @user.first_name = 'tarou'
+        @user.valid?
+      end
+      it '姓(フリガナ)は全角(カタカナ)以外は登録できない' do
+        @user.last_name_kana = 'やまだ'
+        @user.valid?
+      end
+      it '名(フリガナ)は全角(カタカナ)以外は登録できない' do
+        @user.last_name_kana = 'たろう'
+        @user.valid?
       end
     end
   end
