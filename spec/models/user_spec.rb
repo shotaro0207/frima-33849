@@ -82,6 +82,7 @@ RSpec.describe User, type: :model do
       it '＠がない場合登録できない' do
         @user.email = 'tech123gmail.com'
         @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
       end
       it 'passwordが5文字以下では登録できない' do
         @user.password = 'lmn12'
@@ -93,32 +94,39 @@ RSpec.describe User, type: :model do
         @user.password = 'lmnlmn'
         @user.password_confirmation = 'lmnlmn'
         @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it 'passwordが数字のみは登録できない' do
         @user.password = '123456'
         @user.password_confirmation = '123456'
         @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it 'passwordが全角英数混合は登録できない' do
         @user.password = 'ｌｍｎ１２３'
         @user.password_confirmation = 'ｌｍｎ１２３'
         @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it '姓は全角以外は登録できない' do
         @user.last_name = 'yamada'
         @user.valid?
+        expect(@user.errors.full_messages).to include("Last name is invalid")
       end
       it '名は全角以外は登録できない' do
         @user.first_name = 'tarou'
         @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid")
       end
       it '姓(フリガナ)は全角(カタカナ)以外は登録できない' do
         @user.last_name_kana = 'やまだ'
         @user.valid?
+        expect(@user.errors.full_messages).to include("Last name kana is invalid")
       end
       it '名(フリガナ)は全角(カタカナ)以外は登録できない' do
-        @user.last_name_kana = 'たろう'
+        @user.first_name_kana = 'たろう'
         @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana is invalid")
       end
     end
   end
