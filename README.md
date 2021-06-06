@@ -37,10 +37,10 @@
 
 - has_one_attached :image
 - belongs_to :user
-- has_one :sold_out
+- has_one :order
 
 
-# sold_outsテーブル
+# ordersテーブル
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------  | ------------------------------ |
@@ -64,8 +64,11 @@
 | address          | string     | null: false                    |
 | building         | string     | ------------------------------ |
 | phone_number     | string     | null: false                    |
-| sold_out         | references | null: false, foreign_key: true |
+| order            | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :sold_out
+- belongs_to :order
+
+
+
