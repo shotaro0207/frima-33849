@@ -11,7 +11,7 @@ class OrderDestination
     validates :prefectures_id
     validates :municipality
     validates :adress
-    validates :phone_number, format: { with: /0\d{9,10}/ }
+    validates :phone_number, format: { with: /\A0\d{9,10}\z/ }
   end
 
   validates :prefectures_id, numericality: { other_than: 1 }

@@ -65,6 +65,11 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
       end
+      it 'phone_numberが12桁以上だと購入できない' do
+        @order_destination.phone_number = '0903456765432'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
+      end
       it 'userが紐づいていないと購入できない' do
         @order_destination.user_id = nil
         @order_destination.valid?
