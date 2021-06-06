@@ -4,12 +4,10 @@ class OrdersController < ApplicationController
   before_action :move_to_index, only: [:index, :create]
   
   def index
-    @item = Item.find(params[:item_id])
     @order_destination = OrderDestination.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_destination = OrderDestination.new(order_params)
     if @order_destination.valid?
       pay_item

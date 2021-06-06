@@ -60,6 +60,11 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
       end
+      it 'phone_numberが英数字混合だと購入できない' do
+        @order_destination.phone_number = 'abc12345688'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
+      end
       it 'userが紐づいていないと購入できない' do
         @order_destination.user_id = nil
         @order_destination.valid?
